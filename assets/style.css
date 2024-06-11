@@ -91,13 +91,28 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 30px;
 	font-size: 1.2em;
+}
+
+/* Changement de la nav au passage de la souris */
+nav li a {
+	text-decoration: none;
+}
+
+nav li a:hover {
+	font-weight: bold;
+}
+
+/* Redimentionner nav image instagram */
+nav img {
+	max-width: 50%;
 }
 
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -179,33 +194,57 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
-	width: 50%;
-margin: auto;
-}
-#contact > * {
-	text-align: center;
 
+#contact{
+	width: 50%;
+	margin: auto;
 }
+
+/* Ajout des proprietes CSS pour la page login */
+#login {
+	width: 40%;
+	margin: auto;
+}
+
+#contact > *,
+#login > * {
+	text-align: center;
+}
+
+#login label {
+ 	text-align: left;
+}
+
+#login h2 {
+	margin-top:5em;
+}
+
+#login p {
+	text-decoration: underline;
+	margin-bottom:20em;
+}
+
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+
+form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
