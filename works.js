@@ -115,5 +115,9 @@ if (authToken) {
         btnFiltres.style.display = 'block';
     }
     
+    const contactForm = document.getElementById("contact");
+    if (contactForm) {
+        contactForm.style.display = 'block';
+    }
 }
 
