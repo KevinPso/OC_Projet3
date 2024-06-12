@@ -68,3 +68,17 @@ const filtreHotel = document.getElementById("filtre-hotel");
     console.log(workHotel)
     recupWorks(workHotel);
   });
+
+
+
+
+// Récupérer le token d'authentification depuis sessionStorage
+const authToken = sessionStorage.getItem("authToken");
+
+// Vérifier si le token est présent
+if (!authToken) {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    window.location.href = "./login.html";
+} else {
+    console.log("Utilisateur authentifié. Token:", authToken);
+}
