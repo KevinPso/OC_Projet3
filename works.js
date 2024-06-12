@@ -75,10 +75,45 @@ const filtreHotel = document.getElementById("filtre-hotel");
 // Récupérer le token d'authentification depuis sessionStorage
 const authToken = sessionStorage.getItem("authToken");
 
-// Vérifier si le token est présent
-if (!authToken) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    window.location.href = "./login.html";
-} else {
+document.getElementById("btn-logout").addEventListener("click", function (event) {
+    sessionStorage.setItem("userId", []);
+    sessionStorage.setItem("authToken", []);
     console.log("Utilisateur authentifié. Token:", authToken);
+});
+
+// Vérifier si le token est présent
+if (authToken) {
+    console.log("Utilisateur authentifié. Token:", authToken);
+
+// Afficher les éléments spécifiques à l'administrateur
+    const adminControls = document.querySelector('.admin-controls');
+
+    if (adminControls) {
+        adminControls.style.display = 'block';
+    }
+
+    // Autres configurations spécifiques à l'admin
+    const adminBanner = document.querySelector('.admin-banner');
+    if (adminBanner) {
+        adminBanner.style.display = 'block';
+    }
+
+    const btnLogout = document.getElementById("btn-logout");
+    if (btnLogout) {
+        btnLogout.style.display = 'block';
+    }
+
+} else {
+    
+    const btnLogin = document.getElementById("btn-login");
+    if (btnLogin) {
+        btnLogin.style.display = 'block';
+    }
+
+    const btnFiltres = document.getElementById("cache-filtre");
+    if (btnFiltres) {
+        btnFiltres.style.display = 'block';
+    }
+    
 }
+

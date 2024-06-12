@@ -31,7 +31,7 @@ btnConnexion.addEventListener("click", (event) => {
     // Vérification de la réponse HTTP
         if (!response.ok) {
             if (response.status === 401) {
-                alert("Email ou mot de passe incorrect.");
+                alert("Mot de passe incorrect.");
             } else if (response.status === 404) {
                 alert("Utilisateur non trouvé.");
             } else {
