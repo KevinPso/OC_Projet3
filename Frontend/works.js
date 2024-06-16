@@ -6,8 +6,8 @@ const works = await fetch("http://localhost:5678/api/works").then(works => works
 const gallerySection = document.querySelector(".gallery");
 
 // Creation de la fonction asynchrone pour recuperer récupérer et afficher les travaux
-export async function recupWorks(filteredWorks = works) {
-
+async function recupWorks(filteredWorks) {
+console.log(filteredWorks)
 // Vider la section galerie
     gallerySection.innerHTML = "";
 
@@ -30,14 +30,14 @@ export async function recupWorks(filteredWorks = works) {
 }
 
 // Exécution initiale de la fonction avec tous les travaux
-  recupWorks();  
+  recupWorks(works);  
 
 
 // Ajout des écouteurs d'événements pour les filtres
 const filtreTous = document.getElementById("filtre-tous");
 // Affichage de tous les elements
   filtreTous.addEventListener("click", function () {
-    recupWorks();  
+    recupWorks(works);  
   });
 
 const filtreObjets = document.getElementById("filtre-objets");
@@ -72,14 +72,17 @@ const filtreHotel = document.getElementById("filtre-hotel");
 
 
 
+
+
 // Récupérer le token d'authentification depuis sessionStorage
 const authToken = sessionStorage.getItem("authToken");
 
 document.getElementById("btn-logout").addEventListener("click", function (event) {
-    sessionStorage.setItem("userId", []);
-    sessionStorage.setItem("authToken", []);
+    sessionStorage.removeItem("authToken");
     console.log("Utilisateur authentifié. Token:", authToken);
 });
+
+// hasToken
 
 // Vérifier si le token est présent
 if (authToken) {
