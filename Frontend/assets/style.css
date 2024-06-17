@@ -67,15 +67,15 @@ body {
     padding: 15px 0;
     position: fixed;
     top: 0;
-    left: 0; /* Ajouté pour prendre toute la largeur */
-    right: 0; /* Ajouté pour prendre toute la largeur */
+    left: 0;
+    right: 0;
     width: 100%;
     z-index: 1000;
 }
 
 /* Ajout d'un espace en haut pour ne pas cacher le contenu sous le bandeau */
 body.admin-mode {
-    padding-top: 40px; /* Ajuster selon la hauteur du bandeau */
+    padding-top: 40px;
 }
 
 header {

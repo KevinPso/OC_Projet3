@@ -6,12 +6,36 @@ btnModifier.addEventListener("click", (event) => {
     modale.style.display = 'flex';
 });
 
-window.onclick = function(event) {
-    if (event.target == modale) {
-        modale.style.display = 'none';
+
+
+async function reloadGallery() {
+    const reload = await fetch("http://localhost:5678/api/works").then(works => works.json());
+    const gallerySection = document.querySelector(".gallery");
+    gallerySection.innerHTML = "";
+
+    for (let i = 0; i < reload.length; i++) {
+        const work = reload[i];
+    
+        const figureElement = document.createElement("figure");
+    
+        const imageElement = document.createElement("img");
+        imageElement.src = work.imageUrl;
+      
+        const titleElement = document.createElement("figcaption");
+        titleElement.innerText = work.title;
+      
+        gallerySection.appendChild(figureElement);
+        figureElement.appendChild(imageElement);
+        figureElement.appendChild(titleElement);
     }
 }
 
+window.onclick = function(event) {
+    if (event.target == modale) {
+        modale.style.display = 'none';
+        reloadGallery();
+    }
+}
 
 async function init() {
     const span = document.createElement("span");
@@ -22,6 +46,7 @@ async function init() {
     span.addEventListener("click", (event) => {
         event.preventDefault();
         modale.style.display = 'none';
+        reloadGallery();
     }); 
 
     const galleryModale = document.createElement("div");
@@ -46,11 +71,9 @@ async function init() {
     titreModale.appendChild(galeriePhoto);
     contenuModale.insertBefore(titreModale, galleryModale);
 }
-init()
-
+init();
 
 const works = await fetch("http://localhost:5678/api/works").then(works => works.json());
-
 
 async function recupWorks(modifWorks) {
     
@@ -89,6 +112,7 @@ async function recupWorks(modifWorks) {
                         console.log(`Work ID ${work.id} deleted`);
                         // Recharger les images disponibles après suppression
                         const updatedWorks = await fetch("http://localhost:5678/api/works").then(works => works.json());
+                        galleryModale.innerHTML = "";
                         recupWorks(updatedWorks);
                     } else {
                         console.error(`Failed to delete work ID ${work.id}`);
@@ -153,6 +177,7 @@ async function ajouterWorks() {
     spanClose.innerHTML = "&times;";
     spanClose.addEventListener("click", () => {
         modale.style.display = 'none';
+        reloadGallery();
     });
     contenuModale.appendChild(spanClose);
 
@@ -225,13 +250,13 @@ async function ajouterWorks() {
 
     const inputCategorie = document.createElement("select");
     const option1 = document.createElement("option");
-    option1.value = "categorie1";
+    option1.value = 1;
     option1.textContent = "Objets";
     const option2 = document.createElement("option");
-    option2.value = "categorie2";
+    option2.value = 2;
     option2.textContent = "Appartements";
     const option3 = document.createElement("option");
-    option3.value = "categorie3";
+    option3.value = 3;
     option3.textContent = "Hotels & Restaurants";
 
     inputCategorie.appendChild(option1);
@@ -248,11 +273,58 @@ async function ajouterWorks() {
     submitButton.id = 'btn-valider';
     form.appendChild(submitButton);
 
+    submitButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+
+        // Récupération des valeurs du formulaire
+        const titre = inputTitre.value;
+        const categorie = inputCategorie.value;
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        // Vérification si un fichier est sélectionné
+        if (!file || !titre || !categorie) {
+            alert("Veuillez remplir tous les champs et sélectionner un fichier.");
+            return;
+        }
+
+        // Préparation des données à envoyer à l'API en utilisant FormData
+        const formData = new FormData();
+        const authToken = sessionStorage.getItem("authToken");
+        formData.append('image', file); // Ajoute l'image en tant que fichier
+        formData.append('title', titre); // Ajoute le titre
+        formData.append('category', categorie); // Ajoute la catégorie
+
+        try {
+            // Envoi des données à l'API
+            const response = await fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'envoi des données à l\'API.');
+            }
+
+            // Réinitialisation de l'interface après succès
 
 
+        } catch (error) {
+            console.error('Erreur:', error);
+            // Gérer l'erreur, par exemple afficher un message à l'utilisateur
+        }
+        contenuModale.innerHTML = ""; // Efface le contenu de la modale
+        init(); // Réinitialise l'interface (si nécessaire)
+        const works = await fetch("http://localhost:5678/api/works").then(works => works.json());
+        recupWorks(works);  
+        btnAjouter()
+    });
 
     contenuModale.appendChild(form);
-    
+
 }
 
 

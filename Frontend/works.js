@@ -69,11 +69,6 @@ const filtreHotel = document.getElementById("filtre-hotel");
     recupWorks(workHotel);
   });
 
-
-
-
-
-
 // Récupérer le token d'authentification depuis sessionStorage
 const authToken = sessionStorage.getItem("authToken");
 
