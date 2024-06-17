@@ -202,7 +202,8 @@ li:hover {
 }
 
 .admin-controls button:hover {
-	text-decoration: underline; 
+	text-decoration: underline;
+	cursor: pointer; 
 }
 
 i {
@@ -303,6 +304,18 @@ i {
     cursor: pointer; 
 }
 
+.fa-arrow-left {
+	color: #aaa;
+    position: absolute;
+    top: 37px;
+    left: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer; 
+}
+
+.fa-xl:hover,
+.fa-xl:focus,
 .close:hover,
 .close:focus {
     color: black;
@@ -312,11 +325,12 @@ i {
 
 .separation {
 	border-top: 2px solid #ccc;
-    width: 75%;
+    width: 100%;
     margin: 20px 0;
 }
 
-#btn-ajouter {
+#btn-ajouter,
+#btn-valider {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
