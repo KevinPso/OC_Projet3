@@ -98,8 +98,6 @@ async function recupWorks(modifWorks) {
                 }
             });
 
-            const galleryModale = document.querySelector(".gallery-modale");
-
             galleryModale.appendChild(figureElement);
             figureElement.appendChild(boxImage);
             boxImage.appendChild(imageElement);
@@ -167,16 +165,51 @@ async function ajouterWorks() {
 
     const iconeImage = document.createElement("i")
     iconeImage.classList.add("fa-regular", "fa-image", "fa-xl");
-    form.appendChild(iconeImage);
+    boxFichier.appendChild(iconeImage);
 
     const input = document.createElement("input");
     input.type = "file";
+    input.id = 'fileInput';
     input.classList.add("btn-ajout-photo");
-    form.appendChild(input);
+
+    input.addEventListener('change', function(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        imagePreview.textContent = "";
+      
+        if (event.target.files && event.target.files[0]) {
+          const reader = new FileReader();
+      
+          reader.onload = function (e) {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = function() {
+              imagePreview.innerHTML = "";
+              imagePreview.appendChild(image);
+            
+            };
+            input.style.display = 'none';
+          };
+      
+          reader.readAsDataURL(event.target.files[0]);
+        }
+      });
+
+    boxFichier.appendChild(input);
+
+    const ajouterPhoto = document.createElement("p");
+    ajouterPhoto.classList.add("ajouter-photo");
+    ajouterPhoto.textContent = "+ Ajouter Photo"
+    boxFichier.appendChild(ajouterPhoto);
 
     const descriptionFichier = document.createElement("p");
     descriptionFichier.classList.add("description-fichier");
-    form.appendChild(descriptionFichier);
+    descriptionFichier.textContent = "jpg, png : 4mo max"
+    boxFichier.appendChild(descriptionFichier);
+
+    const imagePreview = document.createElement("div");
+    imagePreview.classList.add("image-preview");
+    imagePreview.id = 'imagePreview';
+    boxFichier.appendChild(imagePreview);
 
     const labelTitre = document.createElement("label");
     labelTitre.textContent = "Titre";
@@ -215,7 +248,11 @@ async function ajouterWorks() {
     submitButton.id = 'btn-valider';
     form.appendChild(submitButton);
 
+
+
+
     contenuModale.appendChild(form);
+    
 }
 
 
@@ -231,4 +268,3 @@ async function btnAjouter() {
     });
 }
 btnAjouter()
-
