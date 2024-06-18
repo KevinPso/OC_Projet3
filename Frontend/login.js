@@ -1,19 +1,22 @@
+// recuperation des elements du formulaire
 let inputEmail = document.getElementById("email");
 let inputPassword = document.getElementById("password");
 let btnConnexion = document.getElementById("connexion");
 
+// gestion du bouton de connexion
 btnConnexion.addEventListener("click", (event) => {
     event.preventDefault();
 
     let email = inputEmail.value;
     let password = inputPassword.value;
 
+    // Popup si pas de mail et/ou pas de mdp renseignes
     if (!email || !password) {
         alert("Veuillez remplir les champs email et mot de passe.");
         return;
     }
 
-    // Requête POST à l'API pour la connexion
+    // Requête POST à l'API pour verifier l'utilisateur
     fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: {
@@ -28,7 +31,7 @@ btnConnexion.addEventListener("click", (event) => {
     .then((response) => {
         console.log("HTTP status: ", response.status);
 
-    // Vérification de la réponse HTTP
+    // Vérification de la réponse HTTP et gestion des erreurs avec Popup
         if (!response.ok) {
             if (response.status === 401) {
                 alert("Mot de passe incorrect.");
@@ -44,10 +47,10 @@ btnConnexion.addEventListener("click", (event) => {
     .then((data) => {
         console.log("Réponse API: ", data);
 
-    // Vérification des données de la réponse
+    // Vérification du Token et userId
         if (data.userId && data.token) {
             console.log("Connexion réussie");
-    // Stocker le token pour les requêtes suivantes
+    // Stockage du token pour les fonctions administrateur de la page d'acceuil
             const authToken = data.token;
             sessionStorage.setItem("authToken", authToken);
             window.location.href = "./index.html";

@@ -5,9 +5,10 @@ const works = await fetch("http://localhost:5678/api/works").then(works => works
 // Ciblage de la classe gallery sur le document html
 const gallerySection = document.querySelector(".gallery");
 
-// Creation de la fonction asynchrone pour recuperer récupérer et afficher les travaux
+// Creation de la fonction asynchrone pour recuperer et afficher les travaux
 async function recupWorks(filteredWorks) {
 console.log(filteredWorks)
+
 // Vider la section galerie
     gallerySection.innerHTML = "";
 
@@ -33,8 +34,9 @@ console.log(filteredWorks)
   recupWorks(works);  
 
 
-// Ajout des écouteurs d'événements pour les filtres
+// Ajout des écouteurs d'événements pour chaque filtre
 const filtreTous = document.getElementById("filtre-tous");
+
 // Affichage de tous les elements
   filtreTous.addEventListener("click", function () {
     recupWorks(works);  
@@ -69,6 +71,7 @@ const filtreHotel = document.getElementById("filtre-hotel");
     recupWorks(workHotel);
   });
 
+
 // Récupérer le token d'authentification depuis sessionStorage
 const authToken = sessionStorage.getItem("authToken");
 
@@ -77,20 +80,17 @@ document.getElementById("btn-logout").addEventListener("click", function (event)
     console.log("Utilisateur authentifié. Token:", authToken);
 });
 
-// hasToken
-
-// Vérifier si le token est présent
+// Vérifier si le token est present
 if (authToken) {
     console.log("Utilisateur authentifié. Token:", authToken);
 
-// Afficher les éléments spécifiques à l'administrateur
+// Afficher les éléments spécifiques à l'administrateur si le Token est present
     const adminControls = document.querySelector('.admin-controls');
 
     if (adminControls) {
         adminControls.style.display = 'block';
     }
 
-    // Autres configurations spécifiques à l'admin
     const adminBanner = document.querySelector('.admin-banner');
     if (adminBanner) {
         adminBanner.style.display = 'block';
@@ -102,7 +102,7 @@ if (authToken) {
     }
 
 } else {
-    
+// Si le token n'est pas present dans le sessionStorage, on affiche le bouton Login, les filtres et le formulaire de contact 
     const btnLogin = document.getElementById("btn-login");
     if (btnLogin) {
         btnLogin.style.display = 'block';

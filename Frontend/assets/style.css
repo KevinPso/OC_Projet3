@@ -23,7 +23,8 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
+/********************************** HTML5 display-role reset for older browsers **********************************/
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -32,17 +33,21 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -50,7 +55,9 @@ table {
 
 * {box-sizing: border-box;}
 
-/** end reset css**/
+/********************************** end reset CSS **********************************/
+
+
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -58,6 +65,7 @@ body {
 	font-size: 14px;
 }
 
+/* Gestion de la baniere administrateur */
 .admin-banner {
     display: none;
 	background-color: black;
@@ -78,11 +86,14 @@ body.admin-mode {
     padding-top: 40px;
 }
 
+
+/********************************** Header **********************************/
 header {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 75px;
 }
+
 section {
 	margin: 50px 0
 }
@@ -100,7 +111,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -109,12 +119,15 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+/***************** Nav *****************/
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 
 }
+
 nav li {
 	padding: 0 30px;
 	font-size: 1.2em;
@@ -137,7 +150,7 @@ nav li a:hover {
 	font-weight: bold;
 }
 
-/* Redimentionner nav image instagram */
+/* Redimention du logo instagram */
 nav img {
 	max-width: 50%;
 }
@@ -146,14 +159,19 @@ li:hover {
 	color: #B1663C;
 }
 
+
+/********************************** Body **********************************/
+/***************** Introduction *****************/
 #introduction {
 	display: flex;
 	align-items: center;
 	margin-top: 8em;
 }
+
 #introduction figure {
 	flex: 1
 }
+
 #introduction img {
 	display: block;
 	margin: auto;
@@ -171,15 +189,16 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
+/**************** Portfolio ******************/
 #portfolio {
 	margin-top: 8em;
 }
-
 
 #portfolio h2 {
 	text-align: center;
 }
 
+/* Titre et bouton modifier si admin */
 .projets {
     display: flex;
 	flex-direction: row;
@@ -189,6 +208,7 @@ li:hover {
 	margin-bottom: 4em;
 }
 
+/* Controles admin */
 .admin-controls {
 	display: none;
     flex-direction: row;
@@ -210,8 +230,8 @@ i {
     margin-right: 15px;
 }
 
-/* Modale */
 
+/********************************** Modale **********************************/
 .modale {
 	display: none;
 	align-items: center;
@@ -239,62 +259,10 @@ i {
 	padding: 0px 105px;
 	background-color: #fff;
 	border-radius: 2%;
-	position: relative;
+	position: relative; /* pour le span */
 }
 
-.titre-modale {
-	font-family: 'Work Sans';
-	font-size: 26px;
-	margin-top: 60px;
-	margin-bottom: 20px;
-}
-
-.gallery-modale {
-	display : flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: flex-start;
-	flex-wrap: wrap;
-	gap: 10px;
-	width: 100%;
-	height: 450px;
-	margin-top: 30px;
-}
-
-.image-modale {
-	width: 75px;
-    height: 100px;
-	position: relative;
-}
-
-.image-modale img {
-	width: 75px;
-    height: 100px;
-    object-fit: contain;
-}
-
-.cadre-icone {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-    top: 5px;
-    right: 5px;
-	height: 17px;
-	width: 17px;
-	background-color: black;
-	border: 1px solid rgb(0, 0, 0);
-	border-radius: 15%;
-}
-
-.cadre-icone i {
-	cursor: pointer; 
-	color: #fff;
-	margin-left: 15px;
-	margin-top: 1px;
-	font-weight: 550;
-}
-
+/* Gestion du Span et du retour en arriere */
 .close {
 	color: #aaa;
     position: absolute;
@@ -324,6 +292,64 @@ i {
     cursor: pointer;
 }
 
+
+.titre-modale {
+	font-family: 'Work Sans';
+	font-size: 26px;
+	margin-top: 60px;
+	margin-bottom: 20px;
+}
+
+/* gestion de la galerie de la modale */
+.gallery-modale {
+	display : flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 10px;
+	width: 100%;
+	height: 450px;
+	margin-top: 30px;
+}
+
+/* Gestion des images */
+.image-modale {
+	width: 75px;
+    height: 100px;
+	position: relative;
+}
+
+.image-modale img {
+	width: 75px;
+    height: 100px;
+    object-fit: contain;
+}
+
+/* Gestion de l'icone poubelle */
+.cadre-icone {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+    top: 5px;
+    right: 5px;
+	height: 17px;
+	width: 17px;
+	background-color: black;
+	border: 1px solid rgb(0, 0, 0);
+	border-radius: 15%;
+}
+
+.cadre-icone i {
+	cursor: pointer; 
+	color: #fff;
+	margin-left: 15px;
+	margin-top: 1px;
+	font-weight: 550;
+}
+
+/* Ligne de separation et boutons Ajout et Validation */
 .separation {
 	border-top: 2px solid #ccc;
     width: 100%;
@@ -344,6 +370,7 @@ i {
 	border-radius: 60px ;
 }
 
+/* Gestion du menu Ajout Photo */
 .box-fichier {
 	display: flex;
 	flex-direction: column;
@@ -363,6 +390,7 @@ i {
 	margin-bottom: 40px;
 }
 
+/* Gestion du bouton Ajouter Photo */
 .box-fichier input { 
 	width: 170px;
 	height: 40px;
@@ -374,6 +402,14 @@ i {
 	cursor: pointer;
 }
 
+.ajouter-photo { 
+	position: absolute;
+	bottom: 63px;
+	left: 156px;
+	z-index: 0;
+}
+
+/* Affichage de l'image selectionnee */
 .image-preview{
 	position: absolute;
 	top: 0px;
@@ -389,6 +425,7 @@ i {
 	z-index: 2;
 }
 
+/* Gestion du formulaire d'ajout pour le titre et la categorie */
 form input {
 	font-size: 14px;
 	font-family: 'Work Sans';
@@ -405,18 +442,13 @@ form select {
 	padding-left: 20px;
 }
 
+/* Disparition du bouton d'ajout lorsqu'une image est selectionnee */
 .btn-ajout-photo::-webkit-file-upload-button {
 	visibility: hidden;
 }
 
-.ajouter-photo { 
-	position: absolute;
-	bottom: 63px;
-	left: 156px;
-	z-index: 0;
-}
 
-/* Filtres */
+/********************************** Filtres **********************************/
 .filtres {
     display: flex;
     align-items: center;
@@ -449,8 +481,7 @@ form select {
     height: 35px;
 }
 
-
-/***** Changement de couleur au survol *****/
+/* Changement de couleur au survol */
 .btn-filtres:hover {
     background-color: #1D6154;
 	p {
@@ -459,7 +490,7 @@ form select {
 }
 
 
-
+/********************************** Gallery **********************************/
 .gallery {
 	width: 100%;
 	display: grid;
@@ -479,7 +510,8 @@ form select {
 	margin: auto;
 }
 
-/* Ajout des proprietes CSS pour la page login */
+
+/********************************** Login **********************************/
 #login {
 	width: 40%;
 	margin: auto;
@@ -546,4 +578,3 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
-

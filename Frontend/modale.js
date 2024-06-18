@@ -1,3 +1,4 @@
+// Gestion de l'affichage de la modale
 const modale = document.getElementById("modale-1")
 
 const btnModifier = document.getElementById("btn-modifier")
@@ -6,8 +7,15 @@ btnModifier.addEventListener("click", (event) => {
     modale.style.display = 'flex';
 });
 
+// Gestion de la fermeture de la modale si click a l'exterieur
+window.onclick = function(event) {
+    if (event.target == modale) {
+        modale.style.display = 'none';
+        reloadGallery();
+    }
+}
 
-
+// Fonction pour actualiser la section Gallery
 async function reloadGallery() {
     const reload = await fetch("http://localhost:5678/api/works").then(works => works.json());
     const gallerySection = document.querySelector(".gallery");
@@ -30,13 +38,7 @@ async function reloadGallery() {
     }
 }
 
-window.onclick = function(event) {
-    if (event.target == modale) {
-        modale.style.display = 'none';
-        reloadGallery();
-    }
-}
-
+// Fonction pour la creation du menu initial de la modale : Galerie Photo
 async function init() {
     const span = document.createElement("span");
     span.classList.add("close");
@@ -71,17 +73,19 @@ async function init() {
     titreModale.appendChild(galeriePhoto);
     contenuModale.insertBefore(titreModale, galleryModale);
 }
+// Premiere execution de la fonction
 init();
 
+// Recuperation des travaux sur l'API
 const works = await fetch("http://localhost:5678/api/works").then(works => works.json());
 
+// Fonction pour recuperer les travaux et les afficher sur la modale
 async function recupWorks(modifWorks) {
-    
     const galleryModale = document.querySelector(".gallery-modale");
     const authToken = sessionStorage.getItem("authToken");
     console.log(modifWorks)
     
-    //Boucle for pour creer chaque element dans gallery
+        //Boucle for pour creer chaque element dans gallery
         for (let i = 0; i < modifWorks.length; i++) {
             const work = modifWorks[i];
 
@@ -110,7 +114,7 @@ async function recupWorks(modifWorks) {
     
                     if (response.ok) {
                         console.log(`Work ID ${work.id} deleted`);
-                        // Recharger les images disponibles après suppression
+                        // Actualisation des images disponibles après suppression
                         const updatedWorks = await fetch("http://localhost:5678/api/works").then(works => works.json());
                         galleryModale.innerHTML = "";
                         recupWorks(updatedWorks);
@@ -129,9 +133,26 @@ async function recupWorks(modifWorks) {
             cadreIcone.appendChild(iconeSuppress);
       }
     }
+// Premiere execution de la fonction
 recupWorks(works);  
 
 
+// Fonction pour gerer le bouton Ajouter
+async function btnAjouter() {
+    const btnAjouter = document.getElementById("btn-ajouter")
+    const contenuModale = document.querySelector(".contenu-modale");
+    
+    btnAjouter.addEventListener("click", (event) => {
+        event.preventDefault();
+        contenuModale.innerHTML = "";
+        init();
+        ajouterWorks(works)
+    });
+}
+btnAjouter()
+
+
+// Fonction pour ajouter de nouveaux travaux sur l'API
 async function ajouterWorks() {
     
     const contenuModale = document.querySelector(".contenu-modale");
@@ -171,7 +192,7 @@ async function ajouterWorks() {
         btnAjouter()
     });
    
-    // Reprise du Span
+    // Reprise du Span avec rechargement de la Galerie
     const spanClose = document.createElement("span");
     spanClose.classList.add("close");
     spanClose.innerHTML = "&times;";
@@ -181,7 +202,7 @@ async function ajouterWorks() {
     });
     contenuModale.appendChild(spanClose);
 
-    // Mise en place du Formulaire
+    // Mise en place du Formulaire pour importer une image avec son titre et choix de la categorie
     const form = document.createElement("form");
 
     const boxFichier = document.createElement("div");
@@ -309,34 +330,16 @@ async function ajouterWorks() {
                 throw new Error('Erreur lors de l\'envoi des données à l\'API.');
             }
 
-            // Réinitialisation de l'interface après succès
-
-
         } catch (error) {
             console.error('Erreur:', error);
-            // Gérer l'erreur, par exemple afficher un message à l'utilisateur
         }
-        contenuModale.innerHTML = ""; // Efface le contenu de la modale
-        init(); // Réinitialise l'interface (si nécessaire)
+
+        contenuModale.innerHTML = "";
+        init();
         const works = await fetch("http://localhost:5678/api/works").then(works => works.json());
         recupWorks(works);  
         btnAjouter()
     });
 
     contenuModale.appendChild(form);
-
 }
-
-
-async function btnAjouter() {
-    const btnAjouter = document.getElementById("btn-ajouter")
-    const contenuModale = document.querySelector(".contenu-modale");
-    
-    btnAjouter.addEventListener("click", (event) => {
-        event.preventDefault();
-        contenuModale.innerHTML = "";
-        init();
-        ajouterWorks(works)
-    });
-}
-btnAjouter()
